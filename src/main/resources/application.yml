@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/first_db?currentSchema=first_schema_in_first_db
+    username: first_user
+    password: first_user_password
+springdoc:
+  show-actuator: true
