@@ -1,13 +1,13 @@
-package io.madipalli.prabhu.SpringMapStruct;
+package io.madipalli.prabhu.SpringWithReact;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringMapStructApplication {
+public class SpringWithReact {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringMapStructApplication.class, args);
+        SpringApplication.run(SpringWithReact.class, args);
     }
 
 }

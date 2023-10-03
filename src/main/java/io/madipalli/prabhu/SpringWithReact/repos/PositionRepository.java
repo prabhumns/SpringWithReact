@@ -1,6 +1,6 @@
-package io.madipalli.prabhu.SpringMapStruct.repos;
+package io.madipalli.prabhu.SpringWithReact.repos;
 
-import io.madipalli.prabhu.SpringMapStruct.entity.Position;
+import io.madipalli.prabhu.SpringWithReact.entity.Position;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -1,4 +1,4 @@
-package io.madipalli.prabhu.SpringMapStruct.controller.dto;
+package io.madipalli.prabhu.SpringWithReact.controller.dto;
 
 import lombok.Builder;
 import lombok.Value;

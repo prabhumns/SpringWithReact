@@ -1,7 +1,7 @@
-package io.madipalli.prabhu.SpringMapStruct.service;
+package io.madipalli.prabhu.SpringWithReact.service;
 
-import io.madipalli.prabhu.SpringMapStruct.entity.Position;
-import io.madipalli.prabhu.SpringMapStruct.repos.PositionRepository;
+import io.madipalli.prabhu.SpringWithReact.entity.Position;
+import io.madipalli.prabhu.SpringWithReact.repos.PositionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

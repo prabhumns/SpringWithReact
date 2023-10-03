@@ -1,9 +1,9 @@
-package io.madipalli.prabhu.SpringMapStruct.controller;
+package io.madipalli.prabhu.SpringWithReact.controller;
 
-import io.madipalli.prabhu.SpringMapStruct.controller.dto.CreatePositionRequest;
-import io.madipalli.prabhu.SpringMapStruct.controller.dto.PositionResponse;
-import io.madipalli.prabhu.SpringMapStruct.controller.internal.PositionMapper;
-import io.madipalli.prabhu.SpringMapStruct.service.PositionService;
+import io.madipalli.prabhu.SpringWithReact.controller.dto.CreatePositionRequest;
+import io.madipalli.prabhu.SpringWithReact.controller.dto.PositionResponse;
+import io.madipalli.prabhu.SpringWithReact.controller.internal.PositionMapper;
+import io.madipalli.prabhu.SpringWithReact.service.PositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

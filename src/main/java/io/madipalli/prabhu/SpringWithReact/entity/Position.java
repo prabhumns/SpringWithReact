@@ -1,4 +1,4 @@
-package io.madipalli.prabhu.SpringMapStruct.entity;
+package io.madipalli.prabhu.SpringWithReact.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

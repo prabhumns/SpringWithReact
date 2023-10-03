@@ -1,10 +1,10 @@
-package io.madipalli.prabhu.SpringMapStruct;
+package io.madipalli.prabhu.SpringWithReact;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringMapStructApplicationTests {
+class SpringWithReactTests {
 
 	@Test
 	void contextLoads() {

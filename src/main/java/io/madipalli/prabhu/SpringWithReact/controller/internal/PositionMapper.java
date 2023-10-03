@@ -1,7 +1,7 @@
-package io.madipalli.prabhu.SpringMapStruct.controller.internal;
+package io.madipalli.prabhu.SpringWithReact.controller.internal;
 
-import io.madipalli.prabhu.SpringMapStruct.controller.dto.PositionResponse;
-import io.madipalli.prabhu.SpringMapStruct.entity.Position;
+import io.madipalli.prabhu.SpringWithReact.controller.dto.PositionResponse;
+import io.madipalli.prabhu.SpringWithReact.entity.Position;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
