@@ -13,10 +13,10 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "build": "webpack",
     "format:write": "prettier --write src/main/js",
-    "watch": "webpack --watch -d --output ./target/classes/static/built/bundle.js",
-    "start": "nodemon --exec mvn clean spring-boot:run"
+    "start": "nodemon --exec mvn clean spring-boot:run",
+    "test": "prettier --check src/main/js && eslint --max-warnings 0 && echo 'No tests'",
+    "build": "webpack"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",

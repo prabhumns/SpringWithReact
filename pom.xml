@@ -90,15 +90,33 @@
 				<executions>
 					<execution>
 						<phase>generate-resources</phase>
+						<id>install node and dependencies</id>
 						<goals>
 							<goal>install-node-and-npm</goal>
 							<goal>npm</goal>
+						</goals>
+					</execution>
+					<execution>
+						<phase>generate-resources</phase>
+						<id>js test</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>test</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<phase>generate-resources</phase>
+						<id>bundle</id>
+						<goals>
 							<goal>webpack</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
 					<nodeVersion>v18.16.0</nodeVersion>
+					<installDirectory>target</installDirectory>
 				</configuration>
 				<version>1.14.0</version>
 			</plugin>
