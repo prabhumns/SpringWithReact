@@ -15,7 +15,8 @@
   "scripts": {
     "build": "webpack",
     "format:write": "prettier --write src/main/js",
-    "watch": "webpack --watch -d --output ./target/classes/static/built/bundle.js"
+    "watch": "webpack --watch -d --output ./target/classes/static/built/bundle.js",
+    "start": "nodemon --exec mvn clean spring-boot:run"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",
@@ -38,6 +39,7 @@
     "babel-plugin-react-css-modules": "^5.2.6",
     "css-loader": "^6.8.1",
     "eslint": "^8.50.0",
+    "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
     "prettier-plugin-java": "^2.3.1",
     "style-loader": "^3.3.3",

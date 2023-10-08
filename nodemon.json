@@ -1,0 +1,4 @@
+{
+  "watch": ["pom.xml", "src/", "package.json"],
+  "ext": "java, xml, yml, ts, tsx, json"
+}
