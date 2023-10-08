@@ -1,4 +1,4 @@
-package io.madipalli.prabhu.SpringWithReact.controller.dto;
+package io.madipalli.prabhu.SpringWithReact.managers.dto;
 
 import lombok.Builder;
 import lombok.Value;
@@ -10,7 +10,7 @@ import java.time.Instant;
  */
 @Value
 @Builder(toBuilder = true)
-public class PositionResponse {
+public class PositionManagerDto {
     String positionId;
     Instant creationTime;
     Instant updateTime;

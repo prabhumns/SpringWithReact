@@ -1,12 +1,17 @@
 package io.madipalli.prabhu.SpringWithReact.service;
 
-import io.madipalli.prabhu.SpringWithReact.entity.Position;
-import io.madipalli.prabhu.SpringWithReact.repos.PositionRepository;
+import io.madipalli.prabhu.SpringWithReact.dal.sql.PositionSqlRepository;
+import io.madipalli.prabhu.SpringWithReact.managers.dto.PositionCreationRequestDto;
+import io.madipalli.prabhu.SpringWithReact.dal.entites.PositionEntity;
+import io.madipalli.prabhu.SpringWithReact.managers.PositionManager;
+import io.madipalli.prabhu.SpringWithReact.service.dtos.PositionServiceDto;
+import io.madipalli.prabhu.SpringWithReact.service.internal.PositionMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.List;
 
 /**
@@ -14,22 +19,24 @@ import java.util.List;
  */
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Service
+@Slf4j
 public class PositionService {
-    private final PositionRepository repository;
+    private final PositionManager manager;
+    private final PositionSqlRepository repository;
 
-    public Position createPosition(final String positionName){
-        final var position = Position.builder()
-                .creationTime(Instant.now())
-                .updateTime(Instant.now())
+    @Transactional
+    public PositionServiceDto createPosition(final String positionName) {
+        final var position = manager.createPositionWithName(PositionCreationRequestDto.builder()
                 .name(positionName)
-                .build();
-        return  repository.save(position);
+                .build());
+        return PositionMapper.INSTANCE.convert(position);
     }
-    public Position findPositionById(final String positionId){
+
+    public PositionEntity findPositionById(final String positionId) {
         return repository.findById(positionId).orElseThrow();
     }
 
-    public List<Position> findAllPositions(){
+    public List<PositionEntity> findAllPositions() {
         return repository.findAll();
     }
 }
