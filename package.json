@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@cloudscape-design/components": "^3.0.400",
-    "@cloudscape-design/global-styles": "^1.0.12",
+    "@cloudscape-design/components": "^3.0.979",
+    "@cloudscape-design/global-styles": "^1.0.44",
     "@tanstack/react-query": "^4.36.1",
-    "axios": "^1.5.1",
+    "axios": "^1.9.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "format:write": "prettier --write src/main/js",
-    "start": "nodemon --exec mvn clean spring-boot:run",
+    "format:write": "prettier --write src/*",
+    "start": "nodemon --signal SIGINT --exec mvn clean spring-boot:run",
     "test": "prettier --check src/main/js && eslint --max-warnings 0 && echo 'No tests'",
     "build": "webpack"
   },
@@ -30,7 +30,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.55",
+    "@types/node": "^20.17.43",
     "@types/react": "^18.2.24",
     "@types/react-dom": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "^6.7.4",

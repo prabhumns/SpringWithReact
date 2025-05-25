@@ -1,9 +1,9 @@
 package io.madipalli.prabhu.SpringWithReact.service;
 
-import io.madipalli.prabhu.SpringWithReact.dal.sql.PositionSqlRepository;
-import io.madipalli.prabhu.SpringWithReact.managers.dto.PositionCreationRequestDto;
 import io.madipalli.prabhu.SpringWithReact.dal.entites.PositionEntity;
+import io.madipalli.prabhu.SpringWithReact.dal.sql.PositionSqlRepository;
 import io.madipalli.prabhu.SpringWithReact.managers.PositionManager;
+import io.madipalli.prabhu.SpringWithReact.managers.dto.PositionCreationRequestDto;
 import io.madipalli.prabhu.SpringWithReact.service.dtos.PositionServiceDto;
 import io.madipalli.prabhu.SpringWithReact.service.internal.PositionMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +22,7 @@ import java.util.List;
 @Slf4j
 public class PositionService {
     private final PositionManager manager;
+    private final SubscriptionService subscriptionService;
     private final PositionSqlRepository repository;
 
     @Transactional
@@ -29,6 +30,7 @@ public class PositionService {
         final var position = manager.createPositionWithName(PositionCreationRequestDto.builder()
                 .name(positionName)
                 .build());
+        subscriptionService.sendRandomEvent();
         return PositionMapper.INSTANCE.convert(position);
     }
 
@@ -38,5 +40,9 @@ public class PositionService {
 
     public List<PositionEntity> findAllPositions() {
         return repository.findAll();
+    }
+
+    public void deleteAllPosition(){
+        manager.deleteAllPosition();;
     }
 }

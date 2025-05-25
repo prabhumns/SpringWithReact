@@ -38,4 +38,10 @@ public class PositionManager {
         log.info("Saved in mongo {}", mongoSavedEntity);
         return PositionMapper.INSTANCE.convert(mongoSavedEntity);
     }
+
+    @Transactional
+    public void deleteAllPosition() {
+        mongoRepository.deleteAll();
+        sqlRepository.deleteAll();
+    }
 }

@@ -7,6 +7,7 @@ import io.madipalli.prabhu.SpringWithReact.service.PositionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,5 +45,10 @@ public class PositionController {
     public List<PositionResponse> findAllPositions(){
         final var bos = positionService.findAllPositions();
         return PositionMapper.INSTANCE.convertPositionEntityToPositionResponse(bos);
+    }
+
+    @DeleteMapping
+    public void deleteAllPosition(){
+         positionService.deleteAllPosition();
     }
 }

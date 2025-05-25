@@ -1,4 +1,7 @@
 {
-  "watch": ["pom.xml", "src/", "package.json"],
-  "ext": "java, xml, yml, ts, tsx, json"
+  "watch": ["pom.xml", "src/**/*", "package.json", "nodemon.json"],
+  "ext": "java, xml, yml, ts, tsx, json, html",
+  "exec": "mvn clean spring-boot:run",
+  "signal": "SIGINT",
+  "delay": 5
 }

@@ -1,5 +1,6 @@
 package io.madipalli.prabhu.SpringWithReact.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Value;
 
@@ -12,7 +13,9 @@ import java.time.Instant;
 @Builder(toBuilder = true)
 public class PositionResponse {
     String positionId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "UTC")
     Instant creationTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX", timezone = "UTC")
     Instant updateTime;
     String name;
 }
