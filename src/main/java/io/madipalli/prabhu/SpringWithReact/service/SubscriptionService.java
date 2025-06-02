@@ -46,14 +46,13 @@ public class SubscriptionService {
     }
 
     public void broadcast(final String stockName, final Double value) {
-        log.info("Broadcasting");
         final var sessionIdsOfStock = stockNameToSessionIds
                 .get(stockName);
         if(sessionIdsOfStock == null) {
             log.info("{} stock is not subscribed.", stockName);
             return;
         }
-        log.info("Found session ids {} for staock {}", String.join(",", sessionIdsOfStock), stockName);
+        log.debug("Found session ids {} for staock {}", String.join(",", sessionIdsOfStock), stockName);
         final var sessionIdsToRemove = sessionIdsOfStock
                 .stream()
                 .map(sessionId -> {
