@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package io.madipalli.prabhu;
+
+option java_package = "io.madipalli.prabhu.grpc";
+option java_multiple_files = true;
+
+service SpringWithReact {
+  rpc SayHello(HelloRequest) returns (HelloReply) {}
+  rpc StreamHello(stream HelloRequest) returns (stream HelloReply) {}
+}
+
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}

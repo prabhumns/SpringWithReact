@@ -1,4 +1,9 @@
 spring:
+  grpc:
+    server:
+      health:
+        actuator:
+          enabled: true
   jpa:
     hibernate:
       ddl-auto: update
