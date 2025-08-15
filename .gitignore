@@ -34,3 +34,4 @@ build/
 /node_modules/
 /node/
 hs_*
+**.DS_Store

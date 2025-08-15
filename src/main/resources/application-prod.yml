@@ -1,12 +1,43 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/first_db?currentSchema=first_schema_in_first_db
-    username: first_user
-    password: first_user_password
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
   data:
     mongodb:
-      database: spring_with_react
-      host: localhost
-      username: first_mongo_user
-      password: first_mongo_user_password
-      port: 27017
+      host: ${SPRING_DATA_MONGODB_HOST}
+      port: ${SPRING_DATA_MONGODB_PORT:27017}
+      database: ${SPRING_DATA_MONGODB_DATABASE}
+      username: ${SPRING_DATA_MONGODB_USERNAME}
+      password: ${SPRING_DATA_MONGODB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+  
+# Actuator configuration for health checks
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Server configuration
+server:
+  port: 8080
+  
+# Logging configuration for CloudWatch
+logging:
+  level:
+    io.madipalli.prabhu.SpringWithReact: INFO
+    org.springframework.data.mongodb: WARN
+    org.hibernate: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
