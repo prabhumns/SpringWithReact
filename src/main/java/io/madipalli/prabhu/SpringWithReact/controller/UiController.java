@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Profile("!prod")
 public class UiController {
-    @RequestMapping(value = "/")
-    public String index() {
-        return "index";
-    }
 
+	@RequestMapping(value = "/")
+	public String index() {
+		return "index";
+	}
 }

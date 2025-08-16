@@ -1,35 +1,35 @@
 package io.madipalli.prabhu.SpringWithReact;
 
 public interface CellContent {
-    boolean isSnakeBody();
+	boolean isSnakeBody();
 
-    class SnakeHead implements CellContent {
+	class SnakeHead implements CellContent {
 
-        public static final SnakeHead INSTANCE = new SnakeHead();
+		public static final SnakeHead INSTANCE = new SnakeHead();
 
-        private SnakeHead() {
+		private SnakeHead() {}
 
-        }
-        @Override
-        public boolean isSnakeBody() {
-            return true;
-        }
+		@Override
+		public boolean isSnakeBody() {
+			return true;
+		}
 
-        @Override
-        public String toString() {
-            return "➤";
-        }
-    }
+		@Override
+		public String toString() {
+			return "➤";
+		}
+	}
 
-    class SnakeBody implements CellContent {
-        @Override
-        public boolean isSnakeBody() {
-            return true;
-        }
+	class SnakeBody implements CellContent {
 
-        @Override
-        public String toString() {
-            return "▀";
-        }
-    }
+		@Override
+		public boolean isSnakeBody() {
+			return true;
+		}
+
+		@Override
+		public String toString() {
+			return "▀";
+		}
+	}
 }

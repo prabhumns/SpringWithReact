@@ -10,6 +10,6 @@ import org.mapstruct.factory.Mappers;
  */
 @Mapper
 public interface PositionMapper {
-    PositionMapper INSTANCE = Mappers.getMapper(PositionMapper.class);
-    PositionServiceDto convert(PositionManagerDto dto);
+	PositionMapper INSTANCE = Mappers.getMapper(PositionMapper.class);
+	PositionServiceDto convert(PositionManagerDto dto);
 }

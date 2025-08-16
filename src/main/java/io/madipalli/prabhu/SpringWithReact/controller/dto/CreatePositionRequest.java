@@ -11,5 +11,6 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public class CreatePositionRequest {
-    String name;
+
+	String name;
 }

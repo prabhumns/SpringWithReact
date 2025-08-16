@@ -9,5 +9,6 @@ import lombok.Value;
 @Value
 @Builder(toBuilder = true)
 public class PositionCreationRequestDto {
-    String name;
+
+	String name;
 }

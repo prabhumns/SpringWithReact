@@ -6,13 +6,12 @@ import io.madipalli.prabhu.SpringWithReact.managers.PositionManager;
 import io.madipalli.prabhu.SpringWithReact.managers.dto.PositionCreationRequestDto;
 import io.madipalli.prabhu.SpringWithReact.service.dtos.PositionServiceDto;
 import io.madipalli.prabhu.SpringWithReact.service.internal.PositionMapper;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * Behaviour object in Domain Data Layer. <a href="https://w.amazon.com/bin/view/ACBDA_Pattern/Specifications/2.0">ACBDA Pattern</a>
@@ -21,28 +20,29 @@ import java.util.List;
 @Service
 @Slf4j
 public class PositionService {
-    private final PositionManager manager;
-    private final SubscriptionService subscriptionService;
-    private final PositionSqlRepository repository;
 
-    @Transactional
-    public PositionServiceDto createPosition(final String positionName) {
-        final var position = manager.createPositionWithName(PositionCreationRequestDto.builder()
-                .name(positionName)
-                .build());
-        subscriptionService.sendRandomEvent();
-        return PositionMapper.INSTANCE.convert(position);
-    }
+	private final PositionManager manager;
+	private final SubscriptionService subscriptionService;
+	private final PositionSqlRepository repository;
 
-    public PositionEntity findPositionById(final String positionId) {
-        return repository.findById(positionId).orElseThrow();
-    }
+	@Transactional
+	public PositionServiceDto createPosition(final String positionName) {
+		final var position = manager.createPositionWithName(
+			PositionCreationRequestDto.builder().name(positionName).build()
+		);
+		subscriptionService.sendRandomEvent();
+		return PositionMapper.INSTANCE.convert(position);
+	}
 
-    public List<PositionEntity> findAllPositions() {
-        return repository.findAll();
-    }
+	public PositionEntity findPositionById(final String positionId) {
+		return repository.findById(positionId).orElseThrow();
+	}
 
-    public void deleteAllPosition(){
-        manager.deleteAllPosition();;
-    }
+	public List<PositionEntity> findAllPositions() {
+		return repository.findAll();
+	}
+
+	public void deleteAllPosition() {
+		manager.deleteAllPosition();
+	}
 }

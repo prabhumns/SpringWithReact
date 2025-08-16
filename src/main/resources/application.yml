@@ -1,25 +1,25 @@
 spring:
-  grpc:
-    server:
-      health:
-        actuator:
-          enabled: true
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-  datasource:
-    url: jdbc:postgresql://localhost:5432/first_db?currentSchema=first_schema_in_first_db
-    username: first_user
-    password: first_user_password
-  data:
-    mongodb:
-      database: spring_with_react
-      host: localhost
-      username: first_mongo_user
-      password: first_mongo_user_password
-      port: 27017
+    grpc:
+        server:
+            health:
+                actuator:
+                    enabled: true
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+    datasource:
+        url: jdbc:postgresql://localhost:5432/first_db?currentSchema=first_schema_in_first_db
+        username: first_user
+        password: first_user_password
+    data:
+        mongodb:
+            database: spring_with_react
+            host: localhost
+            username: first_mongo_user
+            password: first_mongo_user_password
+            port: 27017
 springdoc:
-  show-actuator: true
+    show-actuator: true

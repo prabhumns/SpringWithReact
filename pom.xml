@@ -153,6 +153,17 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>relative/path/to/the/folder/to/delete</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
@@ -162,26 +173,39 @@
 						<id>install node and dependencies</id>
 						<goals>
 							<goal>install-node-and-npm</goal>
-							<goal>npm</goal>
+                            <goal>npm</goal>
 						</goals>
 					</execution>
 					<execution>
 						<phase>generate-resources</phase>
-						<id>js test</id>
+						<id>Build frontend assets</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>test</arguments>
+							<arguments>run build-frontend-assets</arguments>
 						</configuration>
 					</execution>
-					<execution>
-						<phase>generate-resources</phase>
-						<id>bundle</id>
-						<goals>
-							<goal>webpack</goal>
-						</goals>
-					</execution>
+                    <execution>
+                        <phase>test</phase>
+                        <id>Verify frontend code</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run code-checks</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>install</phase>
+                        <id>CDK Synth</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run cdk:synth</arguments>
+                        </configuration>
+                    </execution>
 				</executions>
 				<configuration>
 					<nodeVersion>v20.16.0</nodeVersion>

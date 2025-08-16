@@ -6,22 +6,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class KinesisListener {
 
-    private final SubscriptionService service;
+	private final SubscriptionService service;
 
-    public KinesisListener(final SubscriptionService subscriptionManager) {
-        this.service = subscriptionManager;
-        new Thread(this::consumeLoop).start();
-    }
+	public KinesisListener(final SubscriptionService subscriptionManager) {
+		this.service = subscriptionManager;
+		new Thread(this::consumeLoop).start();
+	}
 
-    private void consumeLoop() {
-        while (true) {
-            try {
-
-                service.sendRandomEvent();
-                Thread.sleep(5000); // simulate delay
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	private void consumeLoop() {
+		while (true) {
+			try {
+				service.sendRandomEvent();
+				Thread.sleep(5000); // simulate delay
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

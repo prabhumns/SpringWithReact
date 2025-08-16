@@ -7,21 +7,24 @@ import { BulletList } from "react-content-loader";
 import { Position } from "./Position";
 
 const PositionList: React.FC = () => {
-  const { data: positions } = useQuery({
-    queryKey: ["AllPositions"],
-    queryFn: () => getAllPositions(),
-  });
+	const { data: positions } = useQuery({
+		queryKey: ["AllPositions"],
+		queryFn: () => getAllPositions(),
+	});
 
-  if (positions) {
-    return (
-      <ColumnLayout columns={1}>
-        {(positions as Position[]).map((position: Position) => (
-          <PositionContainer position={position} key={position.positionId} />
-        ))}
-      </ColumnLayout>
-    );
-  }
-  return <BulletList />;
+	if (positions) {
+		return (
+			<ColumnLayout columns={1}>
+				{(positions as Position[]).map((position: Position) => (
+					<PositionContainer
+						position={position}
+						key={position.positionId}
+					/>
+				))}
+			</ColumnLayout>
+		);
+	}
+	return <BulletList />;
 };
 
 export default PositionList;
