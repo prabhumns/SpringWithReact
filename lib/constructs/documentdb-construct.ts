@@ -9,7 +9,11 @@ import {
   InstanceSize,
 } from "aws-cdk-lib/aws-ec2";
 import { DatabaseCluster } from "aws-cdk-lib/aws-docdb";
-import { Secret as SecretsManagerSecret } from "aws-cdk-lib/aws-secretsmanager";
+import {
+  Secret as SecretsManagerSecret,
+  SecretRotation,
+  SecretRotationApplication
+} from "aws-cdk-lib/aws-secretsmanager";
 
 export interface DocumentDbConstructProps {
   vpc: Vpc;
@@ -58,6 +62,19 @@ export class DocumentDbConstruct extends Construct {
         retention: Duration.days(7),
       },
       removalPolicy: RemovalPolicy.DESTROY,
+    });
+
+    // Setup automatic secret rotation
+    new SecretRotation(this, "DocumentDBSecretRotation", {
+      application: SecretRotationApplication.MONGODB_ROTATION_SINGLE_USER,
+      secret: this.credentials,
+      target: this.cluster,
+      vpc: props.vpc,
+      vpcSubnets: {
+        subnetType: SubnetType.PRIVATE_WITH_EGRESS,
+      },
+      securityGroup: props.securityGroup,
+      automaticallyAfter: Duration.days(30), // Rotate every 30 days
     });
   }
 }

@@ -14,7 +14,11 @@ import {
   PostgresEngineVersion,
   Credentials,
 } from "aws-cdk-lib/aws-rds";
-import { Secret as SecretsManagerSecret } from "aws-cdk-lib/aws-secretsmanager";
+import {
+  Secret as SecretsManagerSecret,
+  SecretRotation,
+  SecretRotationApplication
+} from "aws-cdk-lib/aws-secretsmanager";
 
 export interface RdsConstructProps {
   vpc: Vpc;
@@ -61,6 +65,19 @@ export class RdsConstruct extends Construct {
       backupRetention: Duration.days(7),
       deletionProtection: false,
       removalPolicy: RemovalPolicy.DESTROY,
+    });
+
+    // Setup automatic secret rotation
+    new SecretRotation(this, "RdsSecretRotation", {
+      application: SecretRotationApplication.POSTGRES_ROTATION_SINGLE_USER,
+      secret: this.credentials,
+      target: this.database,
+      vpc: props.vpc,
+      vpcSubnets: {
+        subnetType: SubnetType.PRIVATE_WITH_EGRESS,
+      },
+      securityGroup: props.securityGroup,
+      automaticallyAfter: Duration.days(30), // Rotate every 30 days
     });
   }
 }

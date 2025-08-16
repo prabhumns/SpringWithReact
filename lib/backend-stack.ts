@@ -1,16 +1,16 @@
-import { App, Stack, StackProps, CfnOutput } from "aws-cdk-lib";
+import { App, Stack, StackProps } from "aws-cdk-lib";
 import {
-  Vpc,
-  SubnetType,
-  SecurityGroup,
-  Port,
   Peer,
+  Port,
+  SecurityGroup,
+  SubnetType,
+  Vpc,
 } from "aws-cdk-lib/aws-ec2";
-import { DocumentDbConstruct, RdsConstruct, AppConstruct } from "./constructs";
+import { AppConstruct, DocumentDbConstruct, RdsConstruct } from "./constructs";
 
 export class BackendStack extends Stack {
-  constructor(app: App, id?: string, props?: StackProps) {
-    super(app, id || "Backend-Stack", props);
+  constructor(app: App, props?: StackProps) {
+    super(app, "Backend-Stack", props);
 
     // Create VPC with public and private subnets
     const vpc = new Vpc(this, "SpringAppVpc", {
@@ -59,13 +59,6 @@ export class BackendStack extends Stack {
       description: "Security group for Application Load Balancer",
       allowAllOutbound: true,
     });
-
-    // Allow ALB to receive traffic from internet
-    albSecurityGroup.addIngressRule(
-      Peer.anyIpv4(),
-      Port.tcp(80),
-      "Allow HTTP traffic from internet",
-    );
     albSecurityGroup.addIngressRule(
       Peer.anyIpv4(),
       Port.tcp(443),
@@ -99,13 +92,17 @@ export class BackendStack extends Stack {
     });
 
     // Create DocumentDB cluster
-    const documentDbConstruct = new DocumentDbConstruct(this, "DocumentDbConstruct", {
-      vpc,
-      securityGroup: docdbSecurityGroup,
-    });
+    const documentDbConstruct = new DocumentDbConstruct(
+      this,
+      "DocumentDbConstruct",
+      {
+        vpc,
+        securityGroup: docdbSecurityGroup,
+      },
+    );
 
     // Create main application (ECS, ALB, ECR)
-    const appConstruct = new AppConstruct(this, "AppConstruct", {
+    new AppConstruct(this, "AppConstruct", {
       vpc,
       ecsSecurityGroup,
       albSecurityGroup,
@@ -113,37 +110,6 @@ export class BackendStack extends Stack {
       docdbCluster: documentDbConstruct.cluster,
       dbCredentials: rdsConstruct.credentials,
       mongoCredentials: documentDbConstruct.credentials,
-    });
-
-    // CloudFormation Outputs
-    new CfnOutput(this, "LoadBalancerDNS", {
-      value: appConstruct.loadBalancer.loadBalancerDnsName,
-      description: "Application Load Balancer DNS name",
-    });
-
-    new CfnOutput(this, "DatabaseEndpoint", {
-      value: rdsConstruct.database.instanceEndpoint.hostname,
-      description: "RDS PostgreSQL endpoint",
-    });
-
-    new CfnOutput(this, "DocumentDBEndpoint", {
-      value: documentDbConstruct.cluster.clusterEndpoint.hostname,
-      description: "DocumentDB cluster endpoint",
-    });
-
-    new CfnOutput(this, "DockerImageURI", {
-      value: appConstruct.mavenDockerAsset.dockerImageAsset.imageUri,
-      description: "Docker Image URI in ECR",
-    });
-
-    new CfnOutput(this, "ECSClusterName", {
-      value: appConstruct.cluster.clusterName,
-      description: "ECS Cluster name",
-    });
-
-    new CfnOutput(this, "ECSServiceName", {
-      value: appConstruct.service.serviceName,
-      description: "ECS Service name",
     });
   }
 }

@@ -1,31 +1,23 @@
-import { Construct } from "constructs";
 import { Duration, RemovalPolicy } from "aws-cdk-lib";
-import {
-  Vpc,
-  SecurityGroup,
-  SubnetType,
-} from "aws-cdk-lib/aws-ec2";
+import { DatabaseCluster } from "aws-cdk-lib/aws-docdb";
+import { SecurityGroup, SubnetType, Vpc } from "aws-cdk-lib/aws-ec2";
 import {
   Cluster,
-  TaskDefinition,
-  ContainerImage,
   Compatibility,
-  NetworkMode,
-  LogDrivers,
+  ContainerImage,
   FargateService,
-  Secret,
+  LogDrivers,
+  NetworkMode,
   Protocol as EcsProtocol,
+  Secret,
+  TaskDefinition
 } from "aws-cdk-lib/aws-ecs";
-import {
-  ApplicationLoadBalancer,
-  ApplicationProtocol,
-  ListenerAction,
-} from "aws-cdk-lib/aws-elasticloadbalancingv2";
+import { ApplicationLoadBalancer, ApplicationProtocol, ListenerAction } from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
 import { DatabaseInstance } from "aws-cdk-lib/aws-rds";
-import { DatabaseCluster } from "aws-cdk-lib/aws-docdb";
 import { Secret as SecretsManagerSecret } from "aws-cdk-lib/aws-secretsmanager";
-import { MavenDockerAsset } from "./maven-docker-asset";
+import { Construct } from "constructs";
+import { DockerAsset } from "./maven-docker-asset";
 
 export interface AppConstructProps {
   vpc: Vpc;
@@ -41,24 +33,13 @@ export class AppConstruct extends Construct {
   public readonly cluster: Cluster;
   public readonly service: FargateService;
   public readonly loadBalancer: ApplicationLoadBalancer;
-  public readonly mavenDockerAsset: MavenDockerAsset;
+  public readonly mavenDockerAsset: DockerAsset;
 
   constructor(scope: Construct, id: string, props: AppConstructProps) {
     super(scope, id);
 
     // Create Maven Docker asset that automatically builds Spring Boot app and Docker image
-    this.mavenDockerAsset = new MavenDockerAsset(this, "MavenDockerAsset", {
-      directory: ".", // Build from project root
-      exclude: [
-        "node_modules",
-        "bin",
-        "cdk.out",
-        ".git",
-        "*.md",
-        "deploy.sh",
-        "target",
-      ],
-    });
+    this.mavenDockerAsset = new DockerAsset(this, "MavenDockerAsset");
 
     // Create ECS Cluster
     this.cluster = new Cluster(this, "SpringAppCluster", {
@@ -84,7 +65,9 @@ export class AppConstruct extends Construct {
 
     // Add container to task definition
     const container = taskDefinition.addContainer("SpringAppContainer", {
-      image: ContainerImage.fromDockerImageAsset(this.mavenDockerAsset.dockerImageAsset),
+      image: ContainerImage.fromDockerImageAsset(
+        this.mavenDockerAsset.dockerImageAsset,
+      ),
       memoryLimitMiB: 1024,
       cpu: 512,
       logging: LogDrivers.awsLogs({
